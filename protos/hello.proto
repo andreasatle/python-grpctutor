@@ -1,0 +1,17 @@
+syntax = "proto3";
+package hello;
+
+// Service to ping-pong an Hello
+service Hello {
+    rpc SayHello(SayHelloRequest) returns (SayHelloResponse) {}
+}
+
+// Send your name to the server
+message SayHelloRequest {
+    string name = 1;
+}
+
+// Greet name from server
+message SayHelloResponse {
+    string message = 1;
+}
