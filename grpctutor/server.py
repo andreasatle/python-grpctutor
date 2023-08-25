@@ -4,7 +4,7 @@ import os
 import grpc
 
 # Import the generated classes
-from grpctutor.services import Hello
+from grpctutor.services.hello.service import Hello
 
 
 async def serve(host, port):

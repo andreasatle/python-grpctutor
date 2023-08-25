@@ -18,7 +18,7 @@ import logging
 import os
 import grpc
 import sys
-from grpctutor.clients import Hello
+from grpctutor.services.hello.client import Hello
 
     
 async def run(host, port, name) -> None:
