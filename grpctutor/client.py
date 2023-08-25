@@ -30,7 +30,7 @@ async def run(host, port, name) -> None:
 if __name__ == "__main__":
     host = os.environ.get('HELLO_SERVICE_HOST','[::]')
     port = os.environ.get('HELLO_SERVICE_PORT','50051')
-    logging.basicConfig()
+    logging.basicConfig(level=logging.INFO)
     if len(sys.argv) < 2:
         print("Usage: python client.py <name>")
         sys.exit(1)
