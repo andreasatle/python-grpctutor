@@ -7,7 +7,7 @@ import grpc
 from grpctutor.services.hello.service import Hello
 
 
-async def serve(host, port):
+async def serve(port):
     # Create a new server
     server = grpc.aio.server()
 
@@ -15,7 +15,8 @@ async def serve(host, port):
     Hello.add_to_server(server)
 
     # Listen on port
-    listen_addr = f"{host}:{port}"
+    #listen_addr = f"{host}:{port}"
+    listen_addr = f"[::]:{port}"
 
     # Start the server
     server.add_insecure_port(listen_addr)
@@ -29,7 +30,6 @@ async def serve(host, port):
 
 
 if __name__ == "__main__":
-    host = os.environ.get('HELLO_SERVICE_HOST','[::]')
     port = os.environ.get('HELLO_SERVICE_PORT','50051')
     logging.basicConfig(level=logging.INFO)
-    asyncio.run(serve(host, port))
+    asyncio.run(serve(port))
