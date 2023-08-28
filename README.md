@@ -38,6 +38,16 @@ At last I have to change one import in `hello_pb2_grpc.py`,
 import grpctutor.pb2.hello_pb2 as hello__pb2
 ```
 
+# Docker
+In the project root-directory, there is a Docker file.
+In this directory, build a Docker image with:
+```bash
+docker build -t python-grpctutor-server .
+```
+The server can be started with:
+```bash
+docker run -p 50051:50051 python-grpctutor-server
+```
 
 # gRPC-client for PHP
 Using `pecl`, we can install `gRPC` by
