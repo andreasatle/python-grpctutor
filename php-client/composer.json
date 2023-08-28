@@ -1,0 +1,19 @@
+{
+    "name": "andreasatle/php-client",
+    "authors": [
+        {
+            "name": "Andreas Atle",
+            "email": "atle.andreas@gmail.com"
+        }
+    ],
+    "require": {
+        "grpc/grpc": "^1.57",
+        "google/protobuf": "^3.24"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hello\\": "../protos/gen/pb-php/Hello",
+            "GPBMetadata\\": "../protos/gen/pb-php/GPBMetadata"
+        }
+    }
+}
