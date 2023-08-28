@@ -1,6 +1,7 @@
 <?php
 //require 'vendor/autoload.php';
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Hello\HelloClient;
 use Hello\SayHelloRequest;
@@ -28,5 +29,6 @@ Route::get('/name/{name}', function ($name) use ($client) {
     $request = new SayHelloRequest();
     $request->setName($name);
     list($response, $status) = $client->SayHello($request)->wait();
+    Log::info($response->getMessage());
     return $response->getMessage();
 });
