@@ -1,10 +1,9 @@
 <?php
-//require 'vendor/autoload.php';
 
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Route;
 use Hello\HelloClient;
 use Hello\SayHelloRequest;
+
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,18 +16,15 @@ use Hello\SayHelloRequest;
 |
 */
 
-$client = new HelloClient('[::]:50051', [
+$client = new HelloClient('localhost:50051', [
     'credentials' => Grpc\ChannelCredentials::createInsecure(),
 ]);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/name/{name}', function ($name) use ($client) {
     $request = new SayHelloRequest();
     $request->setName($name);
-    list($response, $status) = $client->SayHello($request)->wait();
-    Log::info($response->getMessage());
-    return $response->getMessage();
+    list($reply, $status) = $client->SayHello($request)->wait();
+    return $reply->getMessage();
 });

@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 use Hello\HelloClient;
 use Hello\SayHelloRequest;
 
-$client = new HelloClient('localhost:50051', [
+$client = new HelloClient('[::]:50051', [
     'credentials' => Grpc\ChannelCredentials::createInsecure(),
 ]);
 
