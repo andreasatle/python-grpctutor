@@ -1,0 +1,14 @@
+version: '3'
+services:
+  grpc-service:
+    image: python-grpctutor-server
+    ports:
+      - "50051:50051"
+
+  web-server:
+    image: node-webserver
+    depends_on:
+      - grpc-service
+    ports:
+      - "3000:3000"
+

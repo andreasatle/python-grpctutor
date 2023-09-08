@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-service
+  labels:
+    component: http-service
+spec:
+  type: LoadBalancer
+  selector:
+    component: http-service
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 3000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-service
+  labels:
+    component: http-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: http-service
+  template:
+    metadata:
+      labels:
+        component: http-service
+    spec:
+      containers:
+        - name: http-service
+          image: andreasatle/grpctutor-webserver
+          ports:
+            - containerPort: 3000
+          env:
+            - name: GRPCTUTOR_HELLO_SERVICE_HOST
+              value: hello-service
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-service
+  labels:
+    component: hello-service
+spec:
+  type: ClusterIP
+  selector:
+    component: hello-service
+  ports:
+    - port: 50051
+      targetPort: 50051
+      protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-service
+  labels:
+    component: hello-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: hello-service
+  template:
+    metadata:
+      labels:
+        component: hello-service
+    spec:
+      containers:
+        - name: hello-service
+          image: andreasatle/grpctutor-hello-service
+          ports:
+            - containerPort: 50051

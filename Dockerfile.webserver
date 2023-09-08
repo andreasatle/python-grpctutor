@@ -1,21 +1,10 @@
-# Use an official PHP image as the base image
-FROM php:7.4-apache
+FROM node:alpine
 
-# Set the working directory to /var/www/html
-WORKDIR /var/www/html
+WORKDIR /usr/app/webserver
 
-# Copy the Laravel files into the container
-COPY laravel-webserver /var/www/html
-COPY protos /var/www/protos
+COPY node-webserver/package.json .
+COPY node-webserver/index.js .
+RUN npm install
 
-# Install any necessary PHP extensions and packages
-RUN apt-get update && \
-    apt-get install -y libpng-dev libjpeg-dev zip unzip && \
-    docker-php-ext-configure gd --with-jpeg && \
-    docker-php-ext-install gd pdo pdo_mysql
-
-# Expose port 80 to the outside world
-EXPOSE 80
-
-# Start Apache web server
-CMD ["apache2-foreground"]
+COPY protos /usr/app/protos
+CMD ["npm", "run", "webserver"]
